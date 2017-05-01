@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016 The Bitcoin Core developers
+# Copyright (c) 2016 The Sandrocoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #
 # Helper script to create the cache
-# (see BitcoinTestFramework.setup_chain)
+# (see SandrocoinTestFramework.setup_chain)
 #
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import SandrocoinTestFramework
 
-class CreateCache(BitcoinTestFramework):
+class CreateCache(SandrocoinTestFramework):
 
     def __init__(self):
         super().__init__()

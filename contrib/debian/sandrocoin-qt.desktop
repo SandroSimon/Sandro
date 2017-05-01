@@ -1,13 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Bitcoin Core
-Comment=Connect to the Bitcoin P2P Network
-Comment[de]=Verbinde mit dem Bitcoin peer-to-peer Netzwerk
-Comment[fr]=Bitcoin, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=Bitcoin, eşten eşe kriptografik sanal para birimi
-Exec=bitcoin-qt %u
+Name=Sandrocoin Core
+Comment=Connect to the Sandrocoin P2P Network
+Comment[de]=Verbinde mit dem Sandrocoin peer-to-peer Netzwerk
+Comment[fr]=Sandrocoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Sandrocoin, eşten eşe kriptografik sanal para birimi
+Exec=sandrocoin-qt %u
 Terminal=false
 Type=Application
-Icon=bitcoin128
-MimeType=x-scheme-handler/bitcoin;
+Icon=sandrocoin128
+MimeType=x-scheme-handler/sandrocoin;
 Categories=Office;Finance;

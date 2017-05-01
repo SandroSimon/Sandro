@@ -174,7 +174,7 @@ script: |
     find . -name "lib*.a" -delete
     rm -rf ${DISTNAME}/lib/pkgconfig
  
-    # Sandrocoin: Delete libbitcoin from binary distribution for now, see #192
+    # Sandrocoin: Delete libsandrocoin from binary distribution for now, see #192
     rm -rf ${DISTNAME}/lib/
     rm -rf ${DISTNAME}/include/
     # Sandrocoin: ends

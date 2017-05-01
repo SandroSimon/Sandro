@@ -1,15 +1,15 @@
 [Unit]
-Description=Bitcoin's distributed currency daemon
+Description=Sandrocoin's distributed currency daemon
 After=network.target
 
 [Service]
-User=bitcoin
-Group=bitcoin
+User=sandrocoin
+Group=sandrocoin
 
 Type=forking
-PIDFile=/var/lib/bitcoind/bitcoind.pid
-ExecStart=/usr/bin/bitcoind -daemon -pid=/var/lib/bitcoind/bitcoind.pid \
--conf=/etc/bitcoin/bitcoin.conf -datadir=/var/lib/bitcoind -disablewallet
+PIDFile=/var/lib/sandrocoind/sandrocoind.pid
+ExecStart=/usr/bin/sandrocoind -daemon -pid=/var/lib/sandrocoind/sandrocoind.pid \
+-conf=/etc/sandrocoin/sandrocoin.conf -datadir=/var/lib/sandrocoind -disablewallet
 
 Restart=always
 PrivateTmp=true

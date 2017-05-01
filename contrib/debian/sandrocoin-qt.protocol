@@ -1,6 +1,6 @@
 [Protocol]
-exec=bitcoin-qt '%u'
-protocol=bitcoin
+exec=sandrocoin-qt '%u'
+protocol=sandrocoin
 input=none
 output=none
 helper=true
