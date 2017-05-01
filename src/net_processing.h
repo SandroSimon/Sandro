@@ -3,61 +3,61 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-+ACM-ifndef SANDROCOIN+AF8-NET+AF8-PROCESSING+AF8-H
-+ACM-define SANDROCOIN+AF8-NET+AF8-PROCESSING+AF8-H
+#ifndef SANDROCOIN_NET_PROCESSING_H
+#define SANDROCOIN_NET_PROCESSING_H
 
-+ACM-include +ACI-net.h+ACI-
-+ACM-include +ACI-validationinterface.h+ACI-
+#include "net.h"
+#include "validationinterface.h"
 
-/+ACoAKg- Default for -maxorphantx, maximum number of orphan transactions kept in memory +ACo-/
-static const unsigned int DEFAULT+AF8-MAX+AF8-ORPHAN+AF8-TRANSACTIONS +AD0- 100+ADs-
-/+ACoAKg- Expiration time for orphan transactions in seconds +ACo-/
-static const int64+AF8-t ORPHAN+AF8-TX+AF8-EXPIRE+AF8-TIME +AD0- 20 +ACo- 60+ADs-
-/+ACoAKg- Minimum time between orphan transactions expire time checks in seconds +ACo-/
-static const int64+AF8-t ORPHAN+AF8-TX+AF8-EXPIRE+AF8-INTERVAL +AD0- 5 +ACo- 60+ADs-
-/+ACoAKg- Default number of orphan+recently-replaced txn to keep around for block reconstruction +ACo-/
-static const unsigned int DEFAULT+AF8-BLOCK+AF8-RECONSTRUCTION+AF8-EXTRA+AF8-TXN +AD0- 100+ADs-
+/** Default for -maxorphantx, maximum number of orphan transactions kept in memory */
+static const unsigned int DEFAULT_MAX_ORPHAN_TRANSACTIONS = 100;
+/** Expiration time for orphan transactions in seconds */
+static const int64_t ORPHAN_TX_EXPIRE_TIME = 20 * 60;
+/** Minimum time between orphan transactions expire time checks in seconds */
+static const int64_t ORPHAN_TX_EXPIRE_INTERVAL = 5 * 60;
+/** Default number of orphan+recently-replaced txn to keep around for block reconstruction */
+static const unsigned int DEFAULT_BLOCK_RECONSTRUCTION_EXTRA_TXN = 100;
 
-/+ACoAKg- Register with a network node to receive its signals +ACo-/
-void RegisterNodeSignals(CNodeSignals+ACY- nodeSignals)+ADs-
-/+ACoAKg- Unregister a network node +ACo-/
-void UnregisterNodeSignals(CNodeSignals+ACY- nodeSignals)+ADs-
+/** Register with a network node to receive its signals */
+void RegisterNodeSignals(CNodeSignals& nodeSignals);
+/** Unregister a network node */
+void UnregisterNodeSignals(CNodeSignals& nodeSignals);
 
-class PeerLogicValidation : public CValidationInterface +AHs-
+class PeerLogicValidation : public CValidationInterface {
 private:
-    CConnman+ACo- connman+ADs-
+    CConnman* connman;
 
 public:
-    PeerLogicValidation(CConnman+ACo- connmanIn)+ADs-
+    PeerLogicValidation(CConnman* connmanIn);
 
-    virtual void SyncTransaction(const CTransaction+ACY- tx, const CBlockIndex+ACo- pindex, int nPosInBlock)+ADs-
-    virtual void UpdatedBlockTip(const CBlockIndex +ACo-pindexNew, const CBlockIndex +ACo-pindexFork, bool fInitialDownload)+ADs-
-    virtual void BlockChecked(const CBlock+ACY- block, const CValidationState+ACY- state)+ADs-
-    virtual void NewPoWValidBlock(const CBlockIndex +ACo-pindex, const std::shared+AF8-ptr+ADw-const CBlock+AD4AJg- pblock)+ADs-
-+AH0AOw-
+    virtual void SyncTransaction(const CTransaction& tx, const CBlockIndex* pindex, int nPosInBlock);
+    virtual void UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload);
+    virtual void BlockChecked(const CBlock& block, const CValidationState& state);
+    virtual void NewPoWValidBlock(const CBlockIndex *pindex, const std::shared_ptr<const CBlock>& pblock);
+};
 
-struct CNodeStateStats +AHs-
-    int nMisbehavior+ADs-
-    int nSyncHeight+ADs-
-    int nCommonHeight+ADs-
-    std::vector+ADw-int+AD4- vHeightInFlight+ADs-
-+AH0AOw-
+struct CNodeStateStats {
+    int nMisbehavior;
+    int nSyncHeight;
+    int nCommonHeight;
+    std::vector<int> vHeightInFlight;
+};
 
-/+ACoAKg- Get statistics from node state +ACo-/
-bool GetNodeStateStats(NodeId nodeid, CNodeStateStats +ACY-stats)+ADs-
-/+ACoAKg- Increase a node's misbehavior score. +ACo-/
-void Misbehaving(NodeId nodeid, int howmuch)+ADs-
+/** Get statistics from node state */
+bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
+/** Increase a node's misbehavior score. */
+void Misbehaving(NodeId nodeid, int howmuch);
 
-/+ACoAKg- Process protocol messages received from a given node +ACo-/
-bool ProcessMessages(CNode+ACo- pfrom, CConnman+ACY- connman, const std::atomic+ADw-bool+AD4AJg- interrupt)+ADs-
-/+ACoAKg-
- +ACo- Send queued protocol messages to be sent to a give node.
- +ACo-
- +ACo- +AEA-param+AFs-in+AF0-   pto             The node which we are sending messages to.
- +ACo- +AEA-param+AFs-in+AF0-   connman         The connection manager for that node.
- +ACo- +AEA-param+AFs-in+AF0-   interrupt       Interrupt condition for processing threads
- +ACo- +AEA-return                      True if there is more work to be done
- +ACo-/
-bool SendMessages(CNode+ACo- pto, CConnman+ACY- connman, const std::atomic+ADw-bool+AD4AJg- interrupt)+ADs-
+/** Process protocol messages received from a given node */
+bool ProcessMessages(CNode* pfrom, CConnman& connman, const std::atomic<bool>& interrupt);
+/**
+ * Send queued protocol messages to be sent to a give node.
+ *
+ * @param[in]   pto             The node which we are sending messages to.
+ * @param[in]   connman         The connection manager for that node.
+ * @param[in]   interrupt       Interrupt condition for processing threads
+ * @return                      True if there is more work to be done
+ */
+bool SendMessages(CNode* pto, CConnman& connman, const std::atomic<bool>& interrupt);
 
-+ACM-endif // SANDROCOIN+AF8-NET+AF8-PROCESSING+AF8-H
+#endif // SANDROCOIN_NET_PROCESSING_H
