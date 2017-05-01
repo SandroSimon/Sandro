@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Sandrocoin Core consensus library
+Description: Library for the Sandrocoin consensus protocol.
+Version: 0.14.1
+Libs: -L${libdir} -lsandrocoinconsensus
+Cflags: -I${includedir}
+Requires.private: libcrypto
